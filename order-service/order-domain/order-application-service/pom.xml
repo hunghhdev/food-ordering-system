@@ -14,5 +14,11 @@
 
     <properties>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>dev.hunghh.ordering.system</groupId>
+            <artifactId>order-domain-core</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
