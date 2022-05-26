@@ -1,0 +1,8 @@
+version: '3.8'
+
+networks:
+  food-ordering-system:
+    driver: bridge
+#    ipam:
+#      config:
+#        - subnet: 172.17.1.0/24
