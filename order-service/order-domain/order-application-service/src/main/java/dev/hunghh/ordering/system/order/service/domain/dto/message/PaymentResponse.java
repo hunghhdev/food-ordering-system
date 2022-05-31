@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PaymentResponse {
     private String id;
-    private String sageId;
+    private String sagaId;
     private String orderId;
     private String paymentId;
     private String customerId;
