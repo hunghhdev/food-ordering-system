@@ -23,6 +23,10 @@
         </dependency>
         <dependency>
             <groupId>dev.hunghh.ordering.system</groupId>
+            <artifactId>kafka-consumer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dev.hunghh.ordering.system</groupId>
             <artifactId>kafka-model</artifactId>
         </dependency>
     </dependencies>
