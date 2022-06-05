@@ -1,13 +1,20 @@
 package dev.hunghh.ordering.system.payment.service.domain;
 
+import dev.hunghh.ordering.system.domain.event.publisher.DomainEventPublisher;
 import dev.hunghh.ordering.system.domain.valueobject.CustomerId;
 import dev.hunghh.ordering.system.payment.service.domain.dto.PaymentRequest;
 import dev.hunghh.ordering.system.payment.service.domain.entity.CreditEntry;
 import dev.hunghh.ordering.system.payment.service.domain.entity.CreditHistory;
 import dev.hunghh.ordering.system.payment.service.domain.entity.Payment;
+import dev.hunghh.ordering.system.payment.service.domain.event.PaymentCancelledEvent;
+import dev.hunghh.ordering.system.payment.service.domain.event.PaymentCompletedEvent;
 import dev.hunghh.ordering.system.payment.service.domain.event.PaymentEvent;
+import dev.hunghh.ordering.system.payment.service.domain.event.PaymentFailedEvent;
 import dev.hunghh.ordering.system.payment.service.domain.exception.PaymentApplicationServiceException;
 import dev.hunghh.ordering.system.payment.service.domain.mapper.PaymentDataMapper;
+import dev.hunghh.ordering.system.payment.service.domain.ports.output.message.publisher.PaymentCancelledMessagePublisher;
+import dev.hunghh.ordering.system.payment.service.domain.ports.output.message.publisher.PaymentCompletedMessagePublisher;
+import dev.hunghh.ordering.system.payment.service.domain.ports.output.message.publisher.PaymentFailedMessagePublisher;
 import dev.hunghh.ordering.system.payment.service.domain.ports.output.repository.CreditEntryRepository;
 import dev.hunghh.ordering.system.payment.service.domain.ports.output.repository.CreditHistoryRepository;
 import dev.hunghh.ordering.system.payment.service.domain.ports.output.repository.PaymentRepository;
@@ -29,17 +36,26 @@ public class PaymentRequestHelper {
     private final PaymentRepository paymentRepository;
     private final CreditEntryRepository creditEntryRepository;
     private final CreditHistoryRepository creditHistoryRepository;
+    private final DomainEventPublisher<PaymentCompletedEvent> paymentCompletedEventDomainEventPublisher;
+    private final DomainEventPublisher<PaymentCancelledEvent> paymentCancelledEventDomainEventPublisher;
+    private final DomainEventPublisher<PaymentFailedEvent> paymentFailedEventDomainEventPublisher;
 
     public PaymentRequestHelper(PaymentDomainService paymentDomainService,
                                 PaymentDataMapper paymentDataMapper,
                                 PaymentRepository paymentRepository,
                                 CreditEntryRepository creditEntryRepository,
-                                CreditHistoryRepository creditHistoryRepository) {
+                                CreditHistoryRepository creditHistoryRepository,
+                                PaymentCompletedMessagePublisher paymentCompletedEventDomainEventPublisher,
+                                PaymentCancelledMessagePublisher paymentCancelledEventDomainEventPublisher,
+                                PaymentFailedMessagePublisher paymentFailedEventDomainEventPublisher) {
         this.paymentDomainService = paymentDomainService;
         this.paymentDataMapper = paymentDataMapper;
         this.paymentRepository = paymentRepository;
         this.creditEntryRepository = creditEntryRepository;
         this.creditHistoryRepository = creditHistoryRepository;
+        this.paymentCompletedEventDomainEventPublisher = paymentCompletedEventDomainEventPublisher;
+        this.paymentCancelledEventDomainEventPublisher = paymentCancelledEventDomainEventPublisher;
+        this.paymentFailedEventDomainEventPublisher = paymentFailedEventDomainEventPublisher;
     }
 
     @Transactional
@@ -50,7 +66,12 @@ public class PaymentRequestHelper {
         List<CreditHistory> creditHistories = getCreditHistory(payment.getCustomerId());
         List<String> failureMessages = new ArrayList<>();
         PaymentEvent paymentEvent =
-                paymentDomainService.validateAndInitiatePayment(payment, creditEntry, creditHistories, failureMessages);
+                paymentDomainService.validateAndInitiatePayment(payment,
+                        creditEntry,
+                        creditHistories,
+                        failureMessages,
+                        paymentCompletedEventDomainEventPublisher,
+                        paymentFailedEventDomainEventPublisher);
         persistDbObject(payment, creditEntry, creditHistories, failureMessages);
         return paymentEvent;
     }
@@ -69,7 +90,11 @@ public class PaymentRequestHelper {
         List<CreditHistory> creditHistories = getCreditHistory(payment.getCustomerId());
         List<String> failureMessages = new ArrayList<>();
         PaymentEvent paymentEvent =
-                paymentDomainService.validateAndeCancelPayment(payment, creditEntry, creditHistories, failureMessages);
+                paymentDomainService.validateAndeCancelPayment(payment,
+                        creditEntry,
+                        creditHistories,
+                        failureMessages,
+                        paymentCancelledEventDomainEventPublisher, paymentFailedEventDomainEventPublisher);
         persistDbObject(payment, creditEntry, creditHistories, failureMessages);
         return paymentEvent;
     }
