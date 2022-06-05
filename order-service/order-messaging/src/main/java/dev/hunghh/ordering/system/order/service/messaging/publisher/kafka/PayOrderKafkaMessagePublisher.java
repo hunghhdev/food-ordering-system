@@ -1,6 +1,7 @@
 package dev.hunghh.ordering.system.order.service.messaging.publisher.kafka;
 
 import dev.hunghh.ordering.system.kafka.order.avro.model.RestaurantApprovalRequestAvroModel;
+import dev.hunghh.ordering.system.kafka.producer.KafkaMessageHelper;
 import dev.hunghh.ordering.system.kafka.producer.service.KafkaProducer;
 import dev.hunghh.ordering.system.order.service.domain.config.OrderServiceConfigData;
 import dev.hunghh.ordering.system.order.service.domain.event.OrderPaidEvent;
@@ -16,16 +17,16 @@ public class PayOrderKafkaMessagePublisher implements OrderPaidRestaurantRequest
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final OrderServiceConfigData orderServiceConfigData;
     private final KafkaProducer<String, RestaurantApprovalRequestAvroModel> kafkaProducer;
-    private final OrderKafkaMessageHelper orderKafkaMessageHelper;
+    private final KafkaMessageHelper kafkaMessageHelper;
 
     public PayOrderKafkaMessagePublisher(OrderMessagingDataMapper orderMessagingDataMapper,
                                          OrderServiceConfigData orderServiceConfigData,
                                          KafkaProducer<String, RestaurantApprovalRequestAvroModel> kafkaProducer,
-                                         OrderKafkaMessageHelper orderKafkaMessageHelper) {
+                                         KafkaMessageHelper kafkaMessageHelper) {
         this.orderMessagingDataMapper = orderMessagingDataMapper;
         this.orderServiceConfigData = orderServiceConfigData;
         this.kafkaProducer = kafkaProducer;
-        this.orderKafkaMessageHelper = orderKafkaMessageHelper;
+        this.kafkaMessageHelper = kafkaMessageHelper;
     }
 
     @Override
@@ -38,7 +39,7 @@ public class PayOrderKafkaMessagePublisher implements OrderPaidRestaurantRequest
             kafkaProducer.send(orderServiceConfigData.getRestaurantApprovalRequestTopicName(),
                     orderId,
                     restaurantApprovalRequestAvroModel,
-                    orderKafkaMessageHelper.getKafkaCallBack(orderServiceConfigData.getRestaurantApprovalRequestTopicName(),
+                    kafkaMessageHelper.getKafkaCallBack(orderServiceConfigData.getRestaurantApprovalRequestTopicName(),
                             restaurantApprovalRequestAvroModel,
                             orderId,
                             "RestaurantApprovalRequestAvroModel"));

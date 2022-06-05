@@ -1,16 +1,14 @@
 package dev.hunghh.ordering.system.order.service.messaging.publisher.kafka;
 
 import dev.hunghh.ordering.system.kafka.order.avro.model.PaymentRequestAvroModel;
+import dev.hunghh.ordering.system.kafka.producer.KafkaMessageHelper;
 import dev.hunghh.ordering.system.kafka.producer.service.KafkaProducer;
 import dev.hunghh.ordering.system.order.service.domain.config.OrderServiceConfigData;
 import dev.hunghh.ordering.system.order.service.domain.event.OrderCreatedEvent;
 import dev.hunghh.ordering.system.order.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import dev.hunghh.ordering.system.order.service.messaging.mapper.OrderMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.producer.RecordMetadata;
-import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
-import org.springframework.util.concurrent.ListenableFutureCallback;
 
 @Slf4j
 @Component
@@ -19,16 +17,16 @@ public class CreateOrderKafkaMessagePublisher implements OrderCreatedPaymentRequ
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final OrderServiceConfigData orderServiceConfigData;
     private final KafkaProducer<String, PaymentRequestAvroModel> kafkaProducer;
-    private final OrderKafkaMessageHelper orderKafkaMessageHelper;
+    private final KafkaMessageHelper kafkaMessageHelper;
 
     public CreateOrderKafkaMessagePublisher(OrderMessagingDataMapper orderMessagingDataMapper,
                                             OrderServiceConfigData orderServiceConfigData,
                                             KafkaProducer<String, PaymentRequestAvroModel> kafkaProducer,
-                                            OrderKafkaMessageHelper orderKafkaMessageHelper) {
+                                            KafkaMessageHelper kafkaMessageHelper) {
         this.orderMessagingDataMapper = orderMessagingDataMapper;
         this.orderServiceConfigData = orderServiceConfigData;
         this.kafkaProducer = kafkaProducer;
-        this.orderKafkaMessageHelper = orderKafkaMessageHelper;
+        this.kafkaMessageHelper = kafkaMessageHelper;
     }
 
     @Override
@@ -41,7 +39,7 @@ public class CreateOrderKafkaMessagePublisher implements OrderCreatedPaymentRequ
             kafkaProducer.send(orderServiceConfigData.getPaymentRequestTopicName(),
                     orderId,
                     paymentRequestAvroModel,
-                    orderKafkaMessageHelper.
+                    kafkaMessageHelper.
                             getKafkaCallBack(orderServiceConfigData.
                                     getPaymentResponseTopicName(),
                                     paymentRequestAvroModel,
