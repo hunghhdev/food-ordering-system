@@ -41,11 +41,6 @@
             </dependency>
             <dependency>
                 <groupId>dev.hunghh.ordering.system</groupId>
-                <artifactId>payment-domain-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>dev.hunghh.ordering.system</groupId>
                 <artifactId>order-application-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -62,6 +57,16 @@
             <dependency>
                 <groupId>dev.hunghh.ordering.system</groupId>
                 <artifactId>order-messaging</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>dev.hunghh.ordering.system</groupId>
+                <artifactId>payment-domain-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>dev.hunghh.ordering.system</groupId>
+                <artifactId>payment-application-service</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
