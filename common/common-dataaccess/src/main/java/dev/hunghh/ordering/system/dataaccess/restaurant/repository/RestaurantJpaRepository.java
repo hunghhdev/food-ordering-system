@@ -1,6 +1,6 @@
-package dev.hunghh.ordering.system.order.service.dataaccess.restaurant.repository;
+package dev.hunghh.ordering.system.dataaccess.restaurant.repository;
 
-import dev.hunghh.ordering.system.order.service.dataaccess.restaurant.entity.RestaurantEntity;
+import dev.hunghh.ordering.system.dataaccess.restaurant.entity.RestaurantEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package dev.hunghh.ordering.system.order.service.dataaccess.restaurant.exception;
+package dev.hunghh.ordering.system.dataaccess.restaurant.exception;
 
 public class RestaurantDataAccessException extends RuntimeException{
 

@@ -1,4 +1,4 @@
-package dev.hunghh.ordering.system.order.service.dataaccess.restaurant.entity;
+package dev.hunghh.ordering.system.dataaccess.restaurant.entity;
 
 import lombok.*;
 
