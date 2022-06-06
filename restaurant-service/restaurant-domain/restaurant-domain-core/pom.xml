@@ -11,4 +11,10 @@
 
     <artifactId>restaurant-domain-core</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>dev.hunghh.ordering.system</groupId>
+            <artifactId>common-domain</artifactId>
+        </dependency>
+    </dependencies>
 </project>
