@@ -5,13 +5,14 @@ import dev.hunghh.ordering.system.kafka.producer.KafkaMessageHelper;
 import dev.hunghh.ordering.system.kafka.producer.service.KafkaProducer;
 import dev.hunghh.ordering.system.restaurant.service.domain.config.RestaurantServiceConfigData;
 import dev.hunghh.ordering.system.restaurant.service.domain.event.OrderApprovalEvent;
+import dev.hunghh.ordering.system.restaurant.service.domain.event.OrderApprovedEvent;
 import dev.hunghh.ordering.system.restaurant.service.domain.ports.output.message.publisher.OrderApprovedMessagePublisher;
 import dev.hunghh.ordering.system.restaurant.service.messaging.mapper.RestaurantMessagingDataMapper;
-import lombok.extern.apachecommons.CommonsLog;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 @Slf4j
-@CommonsLog
+@Component
 public class OrderApprovedKafkaMessagePublisher implements OrderApprovedMessagePublisher {
 
     private final RestaurantMessagingDataMapper restaurantMessagingDataMapper;
@@ -28,11 +29,10 @@ public class OrderApprovedKafkaMessagePublisher implements OrderApprovedMessageP
         this.restaurantServiceConfigData = restaurantServiceConfigData;
         this.kafkaMessageHelper = kafkaMessageHelper;
     }
-
     @Override
-    public void publish(OrderApprovalEvent domainEvent) {
+    public void publish(OrderApprovedEvent domainEvent) {
         String orderId = domainEvent.getOrderApproval().getOrderId().getValue().toString();
-        log.info("Received OrderApprovalEvent for order id: {}", orderId);
+        log.info("Received OrderApprovedEvent for order id: {}", orderId);
 
         try {
             RestaurantApprovalResponseAvroModel restaurantApprovalResponseAvroModel =
