@@ -1,6 +1,6 @@
 package dev.hunghh.ordering.system.restaurant.service.domain.config;
 
-impo lombok.Data;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
