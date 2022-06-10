@@ -1,5 +1,6 @@
 package dev.hunghh.ordering.system.order.service.dataaccess.order.adapter;
 
+import dev.hunghh.ordering.system.domain.valueobject.OrderId;
 import dev.hunghh.ordering.system.order.service.dataaccess.order.mapper.OrderDataAccessMapper;
 import dev.hunghh.ordering.system.order.service.dataaccess.order.repository.OrderJpaRepository;
 import dev.hunghh.ordering.system.order.service.domain.entity.Order;
@@ -25,6 +26,12 @@ public class OrderRepositoryImpl implements OrderRepository {
         return orderDataAccessMapper.orderEntityToOrder(
                 orderJpaRepository.save(orderDataAccessMapper.orderToOrderEntity(order))
         );
+    }
+
+    @Override
+    public Optional<Order> findById(OrderId orderId) {
+        return orderJpaRepository.findById(orderId.getValue())
+                .map(orderDataAccessMapper::orderEntityToOrder);
     }
 
     @Override
