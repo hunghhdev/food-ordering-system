@@ -47,10 +47,9 @@ public class OrderMessagingDataMapper {
         Order order = orderPaidEvent.getOrder();
         return RestaurantApprovalRequestAvroModel.newBuilder()
                 .setId(UUID.randomUUID().toString())
-                .setOrderId("")
+                .setSagaId("")
                 .setOrderId(order.getId().getValue().toString())
                 .setRestaurantId(order.getRestaurantId().getValue().toString())
-                .setOrderId(order.getId().getValue().toString())
                 .setRestaurantOrderStatus(RestaurantOrderStatus.valueOf(order.getOrderStatus().name()))
                 .setProducts(order.getItems().stream().map(orderItem -> Product.newBuilder()
                         .setId(orderItem.getProduct().getId().getValue().toString())
