@@ -141,6 +141,11 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>dev.hunghh.ordering.system</groupId>
+                <artifactId>outbox</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
