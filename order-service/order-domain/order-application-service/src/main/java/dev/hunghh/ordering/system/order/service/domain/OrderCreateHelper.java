@@ -1,6 +1,5 @@
 package dev.hunghh.ordering.system.order.service.domain;
 
-import dev.hunghh.ordering.system.domain.event.publisher.DomainEventPublisher;
 import dev.hunghh.ordering.system.order.service.domain.dto.create.CreateOrderCommand;
 import dev.hunghh.ordering.system.order.service.domain.entity.Customer;
 import dev.hunghh.ordering.system.order.service.domain.entity.Order;
@@ -8,7 +7,6 @@ import dev.hunghh.ordering.system.order.service.domain.entity.Restaurant;
 import dev.hunghh.ordering.system.order.service.domain.event.OrderCreatedEvent;
 import dev.hunghh.ordering.system.order.service.domain.exception.OrderDomainException;
 import dev.hunghh.ordering.system.order.service.domain.mapper.OrderDataMapper;
-import dev.hunghh.ordering.system.order.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import dev.hunghh.ordering.system.order.service.domain.ports.output.repository.CustomerRepository;
 import dev.hunghh.ordering.system.order.service.domain.ports.output.repository.OrderRepository;
 import dev.hunghh.ordering.system.order.service.domain.ports.output.repository.RestaurantRepository;
