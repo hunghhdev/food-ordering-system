@@ -1,18 +1,18 @@
 package dev.hunghh.ordering.system.order.service.messaging.publisher.kafka;
 
+import dev.hunghh.ordering.system.domain.event.publisher.DomainEventPublisher;
 import dev.hunghh.ordering.system.kafka.order.avro.model.RestaurantApprovalRequestAvroModel;
 import dev.hunghh.ordering.system.kafka.producer.KafkaMessageHelper;
 import dev.hunghh.ordering.system.kafka.producer.service.KafkaProducer;
 import dev.hunghh.ordering.system.order.service.domain.config.OrderServiceConfigData;
 import dev.hunghh.ordering.system.order.service.domain.event.OrderPaidEvent;
-import dev.hunghh.ordering.system.order.service.domain.ports.output.message.publisher.restaurantapproval.OrderPaidRestaurantRequestMessagePublisher;
 import dev.hunghh.ordering.system.order.service.messaging.mapper.OrderMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class PayOrderKafkaMessagePublisher implements OrderPaidRestaurantRequestMessagePublisher {
+public class PayOrderKafkaMessagePublisher implements DomainEventPublisher<OrderPaidEvent> {
 
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final OrderServiceConfigData orderServiceConfigData;

@@ -1,18 +1,18 @@
 package dev.hunghh.ordering.system.order.service.messaging.publisher.kafka;
 
+import dev.hunghh.ordering.system.domain.event.publisher.DomainEventPublisher;
 import dev.hunghh.ordering.system.kafka.order.avro.model.PaymentRequestAvroModel;
 import dev.hunghh.ordering.system.kafka.producer.KafkaMessageHelper;
 import dev.hunghh.ordering.system.kafka.producer.service.KafkaProducer;
 import dev.hunghh.ordering.system.order.service.domain.config.OrderServiceConfigData;
 import dev.hunghh.ordering.system.order.service.domain.event.OrderCreatedEvent;
-import dev.hunghh.ordering.system.order.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import dev.hunghh.ordering.system.order.service.messaging.mapper.OrderMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class CreateOrderKafkaMessagePublisher implements OrderCreatedPaymentRequestMessagePublisher {
+public class CreateOrderKafkaMessagePublisher implements DomainEventPublisher<OrderCreatedEvent> {
 
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final OrderServiceConfigData orderServiceConfigData;
