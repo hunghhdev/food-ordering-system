@@ -14,6 +14,10 @@
     <dependencies>
         <dependency>
             <groupId>dev.hunghh.ordering.system</groupId>
+            <artifactId>outbox</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dev.hunghh.ordering.system</groupId>
             <artifactId>kafka-model</artifactId>
         </dependency>
         <dependency>
