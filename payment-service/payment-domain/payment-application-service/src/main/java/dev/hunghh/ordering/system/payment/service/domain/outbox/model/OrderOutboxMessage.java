@@ -23,7 +23,7 @@ public class OrderOutboxMessage {
     private OutboxStatus outboxStatus;
     private int version;
 
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
+    public void setOutboxStatus(OutboxStatus outboxStatus) {
+        this.outboxStatus = outboxStatus;
     }
 }
