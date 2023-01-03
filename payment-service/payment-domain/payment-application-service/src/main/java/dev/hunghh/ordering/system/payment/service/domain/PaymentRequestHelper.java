@@ -9,6 +9,7 @@ import dev.hunghh.ordering.system.payment.service.domain.entity.CreditHistory;
 import dev.hunghh.ordering.system.payment.service.domain.entity.Payment;
 import dev.hunghh.ordering.system.payment.service.domain.event.PaymentEvent;
 import dev.hunghh.ordering.system.payment.service.domain.exception.PaymentApplicationServiceException;
+import dev.hunghh.ordering.system.payment.service.domain.exception.PaymentNotFoundException;
 import dev.hunghh.ordering.system.payment.service.domain.mapper.PaymentDataMapper;
 import dev.hunghh.ordering.system.payment.service.domain.outbox.model.OrderOutboxMessage;
 import dev.hunghh.ordering.system.payment.service.domain.outbox.scheduler.OrderOutboxHelper;
@@ -87,7 +88,7 @@ public class PaymentRequestHelper {
         Optional<Payment> paymentResponse = paymentRepository.findByOrderId(UUID.fromString(paymentRequest.getOrderId()));
         if (paymentResponse.isEmpty()) {
             log.error("Payment with order id: {} could not be found!", paymentRequest.getOrderId());
-            throw new PaymentApplicationServiceException("Payment with order id: " + paymentRequest.getOrderId() +
+            throw new PaymentNotFoundException("Payment with order id: " + paymentRequest.getOrderId() +
                     " could not be found!");
         }
         Payment payment = paymentResponse.get();
