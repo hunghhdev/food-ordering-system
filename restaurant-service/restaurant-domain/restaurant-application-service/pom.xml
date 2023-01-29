@@ -15,6 +15,14 @@
     <dependencies>
         <dependency>
             <groupId>dev.hunghh.ordering.system</groupId>
+            <artifactId>outbox</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dev.hunghh.ordering.system</groupId>
+            <artifactId>saga</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dev.hunghh.ordering.system</groupId>
             <artifactId>restaurant-domain-core</artifactId>
         </dependency>
         <dependency>
@@ -29,5 +37,10 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

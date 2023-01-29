@@ -11,7 +11,5 @@ import java.util.List;
 public interface RestaurantDomainService {
 
     OrderApprovalEvent validateOrder(Restaurant restaurant,
-                                     DomainEventPublisher<OrderApprovedEvent> orderApprovedEventDomainEventPublisher,
-                                     DomainEventPublisher<OrderRejectedEvent> orderRejectedEventDomainEventPublisher,
                                      List<String> failureMessages);
 }
