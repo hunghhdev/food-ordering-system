@@ -101,7 +101,6 @@ services:
       - zookeeper
   kafka-manager:
     image: hlebalbau/kafka-manager
-    restart: always
     ports:
       - "9000:9000"
     environment:
