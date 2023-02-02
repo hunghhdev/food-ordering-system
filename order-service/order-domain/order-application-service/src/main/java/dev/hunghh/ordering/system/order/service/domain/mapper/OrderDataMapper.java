@@ -4,11 +4,9 @@ import dev.hunghh.ordering.system.domain.valueobject.*;
 import dev.hunghh.ordering.system.order.service.domain.dto.create.CreateOrderCommand;
 import dev.hunghh.ordering.system.order.service.domain.dto.create.CreateOrderResponse;
 import dev.hunghh.ordering.system.order.service.domain.dto.create.OrderAddress;
+import dev.hunghh.ordering.system.order.service.domain.dto.message.CustomerModel;
 import dev.hunghh.ordering.system.order.service.domain.dto.track.TrackOrderResponse;
-import dev.hunghh.ordering.system.order.service.domain.entity.Order;
-import dev.hunghh.ordering.system.order.service.domain.entity.OrderItem;
-import dev.hunghh.ordering.system.order.service.domain.entity.Product;
-import dev.hunghh.ordering.system.order.service.domain.entity.Restaurant;
+import dev.hunghh.ordering.system.order.service.domain.entity.*;
 import dev.hunghh.ordering.system.order.service.domain.event.OrderCancelledEvent;
 import dev.hunghh.ordering.system.order.service.domain.event.OrderCreatedEvent;
 import dev.hunghh.ordering.system.order.service.domain.event.OrderPaidEvent;
@@ -112,5 +110,12 @@ public class OrderDataMapper {
                         .quantity(orderItem.getQuantity())
                         .subTotal(new Money(orderItem.getSubTotal()))
                         .build()).collect(Collectors.toList());
+    }
+
+    public Customer customerModelToCustomer(CustomerModel customerModel) {
+        return new Customer(new CustomerId(UUID.fromString(customerModel.getId())),
+                customerModel.getUsername(),
+                customerModel.getFirstName(),
+                customerModel.getLastName());
     }
 }

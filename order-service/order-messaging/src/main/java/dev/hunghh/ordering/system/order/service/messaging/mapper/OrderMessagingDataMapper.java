@@ -3,6 +3,7 @@ package dev.hunghh.ordering.system.order.service.messaging.mapper;
 import dev.hunghh.ordering.system.domain.valueobject.OrderApprovalStatus;
 import dev.hunghh.ordering.system.domain.valueobject.PaymentStatus;
 import dev.hunghh.ordering.system.kafka.order.avro.model.*;
+import dev.hunghh.ordering.system.order.service.domain.dto.message.CustomerModel;
 import dev.hunghh.ordering.system.order.service.domain.dto.message.PaymentResponse;
 import dev.hunghh.ordering.system.order.service.domain.dto.message.RestaurantApprovalResponse;
 import dev.hunghh.ordering.system.order.service.domain.entity.Order;
@@ -74,6 +75,15 @@ public class OrderMessagingDataMapper {
                                 .build()).collect(Collectors.toList()))
                 .setPrice(orderApprovalEventPayload.getPrice())
                 .setCreateAt(orderApprovalEventPayload.getCreatedAt().toInstant())
+                .build();
+    }
+
+    public CustomerModel customerAvroModelToCustomerModel(CustomerAvroModel customerAvroModel) {
+        return CustomerModel.builder()
+                .id(customerAvroModel.getId())
+                .username(customerAvroModel.getUsername())
+                .firstName(customerAvroModel.getFirstName())
+                .lastName(customerAvroModel.getLastName())
                 .build();
     }
 }
