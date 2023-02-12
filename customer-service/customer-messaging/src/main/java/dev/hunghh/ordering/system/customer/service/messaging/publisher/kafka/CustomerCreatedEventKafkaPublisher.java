@@ -40,10 +40,10 @@ public class CustomerCreatedEventKafkaPublisher implements CustomerMessagePublis
                     customerAvroModel,
                     getCallback(customerServiceConfigData.getCustomerTopicName(), customerAvroModel));
 
-            log.info("CustomerCreatedEvent sent to RabbitMQ for customer id: {}",
+            log.info("CustomerCreatedEvent sent to Kafka for customer id: {}",
                     customerAvroModel.getId());
         } catch (Exception e) {
-            log.error("Error while sending CustomerCreatedEvent to RabbitMQ for customer id: {}," +
+            log.error("Error while sending CustomerCreatedEvent to Kafka for customer id: {}," +
                     " error: {}", customerCreatedEvent.getCustomer().getId().getValue(), e.getMessage());
         }
     }
